@@ -1,0 +1,22 @@
+[package]
+name = "actix-casbin-example"
+version = "0.1.0"
+authors = ["Chojan Shang <psiace@outlook.com>"]
+edition = "2018"
+description = "Just a demo for actix-web & casbin."
+license = "MIT/Apache-2.0"
+repository = "https://github.com/psiace/actix-casbin-example"
+readme = "README.md"
+
+include = [
+  "Cargo.toml",
+  "LICENSE-APACHE",
+  "LICENSE-MIT",
+  "src/**/*"
+]
+
+[dependencies]
+actix-web = "2.0"
+actix-rt = "1.0"
+casbin = "0.3"
+loge = {version = "0.4", default-features = false, features = ["colored", "chrono"]}
