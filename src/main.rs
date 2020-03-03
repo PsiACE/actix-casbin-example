@@ -11,7 +11,7 @@ async fn success(enforcer: web::Data<RwLock<Enforcer>>, req: HttpRequest) -> Htt
     println!("{:?}", req);
     assert_eq!(vec!["data2_admin"], e.get_roles_for_user("alice", None));
 
-    HttpResponse::Ok().body(format!("Num of requests: {}", 1))
+    HttpResponse::Ok().body("Success: alice is data2_admin.")
 }
 
 async fn fail(enforcer: web::Data<RwLock<Enforcer>>, req: HttpRequest) -> HttpResponse {
@@ -19,7 +19,7 @@ async fn fail(enforcer: web::Data<RwLock<Enforcer>>, req: HttpRequest) -> HttpRe
     println!("{:?}", req);
     assert_eq!(vec!["data1_admin"], e.get_roles_for_user("alice", None));
 
-    HttpResponse::Ok().body(format!("Num of requests: {}", 1))
+    HttpResponse::Ok().body("Fail: alice is not data1_admin.") // In fact, it can't be displayed.
 }
 
 #[actix_rt::main]
@@ -34,7 +34,9 @@ async fn main() -> io::Result<()> {
         .unwrap();
     let adapter = FileAdapter::new("rbac/rbac_policy.csv");
 
-    let e = Enforcer::new(Box::new(model), Box::new(adapter)).await.unwrap();
+    let e = Enforcer::new(Box::new(model), Box::new(adapter))
+        .await
+        .unwrap();
     let e = web::Data::new(RwLock::new(e)); // wrap enforcer into actix-state
 
     //move is necessary to give closure below ownership of counter

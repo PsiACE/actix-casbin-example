@@ -11,7 +11,7 @@ cd actix-casbin-example
 cargo run
 ```
 
-You can get the the successful result at `http://localhost:8080/success` (accessible) and the failed result at `http://localhost:8080/fail` (unreachable).
+In this example, you can get the the successful result at `http://localhost:8080/success` (accessible) and the failed result at `http://localhost:8080/fail` (inaccessible, `ERR_EMPTY_RESPONSE`).
 
 ## Contact
 
