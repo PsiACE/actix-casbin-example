@@ -17,7 +17,7 @@ In this example, you can get the the successful result at `http://localhost:8080
 
 Chojan Shang - [@PsiACE](https://github.com/psiace) - <psiace@outlook.com>
 
-Project Link: [https://github.com/psiace/emo](https://github.com/psiace/actix-casbin-example)
+Project Link: [https://github.com/psiace/actix-casbin-example](https://github.com/psiace/actix-casbin-example)
 
 ## License
 
