@@ -1,0 +1,35 @@
+name: Auto Release
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release:
+    name: Auto Release by Tags
+    runs-on: ubuntu-18.04
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@master
+
+      - name: Install Rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          profile: minimal
+          toolchain: stable
+          default: true
+
+      - name: Install Deps for Semantic.rs
+        run: |
+          sudo apt-get update --fix-missing 
+          sudo apt-get install -y cmake libssl-dev pkg-config zlib1g-dev
+
+      - name: Publish
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          CARGO_TOKEN: ${{ secrets.CARGO_TOKEN }}
+          GIT_COMMITTER_NAME: ${{ secrets.GIT_COMMITTER_NAME }} # Or you can replace it.
+          GIT_COMMITTER_EMAIL: ${{ secrets.GIT_COMMITTER_EMAIL }} # Or you can replace it.
+        run: cargo install semantic-rs && semantic-rs # -w=yes for actually run
