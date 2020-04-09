@@ -21,6 +21,9 @@ jobs:
           toolchain: stable
           default: true
 
+      - name: Build Docker
+        run: docker build -t release .
+
       - name: Publish
         run: > 
           docker run 
