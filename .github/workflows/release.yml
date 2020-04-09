@@ -24,7 +24,7 @@ jobs:
       - name: Install Deps for Semantic.rs
         run: |
           sudo apt-get update --fix-missing 
-          sudo apt-get install -y cmake libssl-dev pkg-config zlib1g-dev
+          sudo apt-get install -y cmake openssl libssl-dev pkg-config zlib1g-dev
 
       - name: Publish
         env:
