@@ -7,7 +7,7 @@ on:
 
 jobs:
   release:
-    name: Auto Release by Tags
+    name: Auto Release by semantic-rs
     runs-on: ubuntu-18.04
 
     steps:
@@ -21,15 +21,11 @@ jobs:
           toolchain: stable
           default: true
 
-      - name: Install Deps for Semantic.rs
-        run: |
-          sudo apt-get update --fix-missing 
-          sudo apt-get install -y cmake openssl libssl-dev pkg-config zlib1g-dev
-
       - name: Publish
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-          CARGO_TOKEN: ${{ secrets.CARGO_TOKEN }}
-          GIT_COMMITTER_NAME: ${{ secrets.GIT_COMMITTER_NAME }} # Or you can replace it.
-          GIT_COMMITTER_EMAIL: ${{ secrets.GIT_COMMITTER_EMAIL }} # Or you can replace it.
-        run: cargo install semantic-rs && semantic-rs # -w=yes for actually run
+        run: > 
+          docker run 
+          --env GH_TOKEN="${{ secrets.GITHUB_TOKEN }}"
+          --env CARGO_TOKEN="${{ secrets.CARGO_TOKEN }}" 
+          --env GIT_COMMITTER_NAME="${{ secrets.GIT_COMMITTER_NAME }}" 
+          --env GIT_COMMITTER_EMAIL="${{ secrets.GIT_COMMITTER_EMAIL }}" 
+          release /bin/bash -c "cargo install semantic-rs && semantic-rs"
